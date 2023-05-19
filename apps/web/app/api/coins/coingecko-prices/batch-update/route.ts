@@ -17,21 +17,8 @@ const fetchCoin = async (tokenId: string) => {
     }
 }
 
-function checkCronKey(url: string) {
-    const urlObj = new URL(url);
-    const searchParams = urlObj.searchParams;
-    const key = searchParams.get('key');
-
-    const valid = key === process.env.CRON_SHARED_KEY
-    console.log(key, process.env.CRON_SHARED_KEY, valid)
-
-    if (!valid) {
-        throw new Error('Invalid key');
-    }
-}
-
 export async function GET(request: Request) {
-    checkCronKey(request.url);
+    // TODO: verify that the request is coming from vercel cron.
 
     const keys = await kv.smembers("coin_keys");
     const fetchPromises = keys.map(async (key) => {
