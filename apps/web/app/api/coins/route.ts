@@ -1,11 +1,20 @@
 import { kv } from '@vercel/kv';
 import { NextResponse } from 'next/server';
 
-export async function GET() {
-    const keys = await kv.smembers("coin_keys");
+let cachedCoinKeys = []
+async function getCoinKeys() {
+    if (cachedCoinKeys.length === 0) {
+        cachedCoinKeys = await kv.smembers("coin_keys");
+    }
 
+    return cachedCoinKeys
+}
+
+export async function GET() {
+    const coinKeys = await getCoinKeys()
+    
     const pipeline = kv.pipeline();
-    keys.forEach((key) => pipeline.hgetall(key));
+    coinKeys.forEach((key) => pipeline.hgetall(key));
     const data = await pipeline.exec();
 
     return NextResponse.json({ data });
