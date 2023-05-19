@@ -12,7 +12,7 @@ async function getCoinKeys() {
 
 export async function GET() {
     const coinKeys = await getCoinKeys()
-    
+
     const pipeline = kv.pipeline();
     coinKeys.forEach((key) => pipeline.hgetall(key));
     const data = await pipeline.exec();

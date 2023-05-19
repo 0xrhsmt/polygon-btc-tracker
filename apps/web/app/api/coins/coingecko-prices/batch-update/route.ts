@@ -1,5 +1,5 @@
 import { kv } from '@vercel/kv';
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
 const COIN_BASE_URL = 'https://api.coingecko.com/api/v3/coins';
 

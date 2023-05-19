@@ -1,6 +1,5 @@
 "use client";
 
-import { Button, Header } from "ui";
 import { useEffect, useState } from 'react';
 
 export default function Page() {
