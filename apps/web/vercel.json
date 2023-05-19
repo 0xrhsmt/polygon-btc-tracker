@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/coins/coingecko-prices/batch-update",
+      "schedule": "*/2 * * * *"
+    }
+  ]
+}
