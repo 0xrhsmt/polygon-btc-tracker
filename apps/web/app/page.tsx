@@ -24,8 +24,6 @@ export default function Page() {
     fetchData();
   }, []);
 
-  console.log(coins[0])
-
   return (
     <div>
       <header className="flex justify-start z-50 w-full bg-purple-600 border-b border-white/[.5] text-sm py-3 sm:py-0">
@@ -33,7 +31,7 @@ export default function Page() {
           <div className="flex items-center justify-between w-full">
             <a className="flex items-center text-xl font-semibold text-white cursor-pointer space-x-2" href="#" aria-label="Brand">
               <Image src="/logo.png" alt="Github" width={30} height={30} />
-              <span>BTC Tracker</span>
+              <span>BTC Tracker on Polygon</span>
             </a>
           </div>
           <div id="navbar-collapse-with-animation" className="hs-collapse overflow-hidden transition-all duration-300 basis-full grow">
