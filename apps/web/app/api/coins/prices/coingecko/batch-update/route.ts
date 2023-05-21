@@ -23,6 +23,8 @@ export async function GET(request: Request) {
     const keys = await kv.smembers("coin_keys");
     const fetchPromises = keys.map(async (key) => {
         const id: string = await kv.hget(key, 'coingecko_id');
+        if(!id) return;
+
         const data = await fetchCoin(id);
         await kv.hmset(key, { coingecko_price: JSON.stringify(data) });
     });

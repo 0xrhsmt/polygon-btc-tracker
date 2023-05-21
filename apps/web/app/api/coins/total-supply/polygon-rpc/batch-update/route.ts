@@ -6,13 +6,15 @@ import erc20Abi from './erc20-abi.json'
 
 const SUPPORTED_CHAINS = ["polygon", 'ethereum'] as const
 
+const INFURA_API_KEY = process.env.INFURA_API_KEY
+
 const polygonClient = createPublicClient({
     chain: polygon,
-    transport: http('https://polygon-mainnet.infura.io/v3/aad77eaee4b049bab603c21e523accd7')
+    transport: http(`https://polygon-mainnet.infura.io/v3/${INFURA_API_KEY}`)
 })
 const ethClient = createPublicClient({
     chain: mainnet,
-    transport: http('https://mainnet.infura.io/v3/aad77eaee4b049bab603c21e523accd7')
+    transport: http(`https://mainnet.infura.io/v3/${INFURA_API_KEY}`)
 })
 
 const getClient = (chain: typeof SUPPORTED_CHAINS[number]): PublicClient  => {
@@ -44,6 +46,8 @@ export async function GET(request: Request) {
     for (const chain of SUPPORTED_CHAINS) {
         const fetchPromises = keys.map(async (key) => {
             const contractAddress: `0x${string}` = await kv.hget(key, `${chain}_contract_address`);
+            if(!contractAddress) return;
+
             const data = await fetchTotalSupply(contractAddress, chain);
     
             await kv.hmset(key, { [`${chain}_total_supply`]: data.toString() });

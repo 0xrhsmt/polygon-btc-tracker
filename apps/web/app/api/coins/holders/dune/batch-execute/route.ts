@@ -48,15 +48,9 @@ export async function GET(request: Request) {
             const startAt: string = await kv.hget(key, `dune_holders_${chain}_execution_submitted_at`);
             const endAt: string = await kv.hget(key, `dune_holders_${chain}_execution_ended_at`);
 
-            if (!contractAddress) {
-                return Promise.resolve();
-            }
-            if (['QUERY_STATE_PENDING', 'QUERY_STATE_EXECUTING'].includes(state)) {
-                return Promise.resolve();
-            }
-            if ((startAt !== null && endAt === null) || (endAt !== null && !check24HoursPassed(endAt))) {
-                return Promise.resolve();
-            }
+            if (!contractAddress) return;
+            if (['QUERY_STATE_PENDING', 'QUERY_STATE_EXECUTING'].includes(state)) return;
+            if ((startAt !== null && endAt === null) || (endAt !== null && !check24HoursPassed(endAt))) return;
 
             const res = await executeDuneQuery(contractAddress, chain)
             await kv.hmset(key, {
