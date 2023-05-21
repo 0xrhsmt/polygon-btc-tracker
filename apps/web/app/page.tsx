@@ -80,7 +80,7 @@ export default function Page() {
           </div>
         </div>
 
-        <h2 className="text-2xl font-bold md:text-2xl mb-10">Bitcoin Pegged Tokens</h2>
+        <h2 className="text-2xl font-bold md:text-2xl mb-8">Bitcoin Pegged Tokens</h2>
         <div className="flex flex-col">
           <div className="-m-1.5 overflow-x-auto">
             <div className="p-1.5 min-w-full inline-block align-middle">
