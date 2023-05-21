@@ -5,16 +5,22 @@ dotenv.config();
 
 type Coins = {
     [key: string]: {
-        order: number;
+        order: number | null;
         coingecko_id: string;
         ethereum_contract_address: `0x${string}` | null;
         polygon_contract_address: `0x${string}` | null;
-        token_decimals: number;
-
+        token_decimals: number | null;
     }
 }
 
 const coins: Coins = {
+    ['coin:BTC']: {
+        "order": null,
+        "coingecko_id": "bitcoin",
+        "ethereum_contract_address": null,
+        "polygon_contract_address": null,
+        "token_decimals": null,
+    },
     ['coin:WBTC']: {
         "order": 0,
         "coingecko_id": "wrapped-bitcoin",

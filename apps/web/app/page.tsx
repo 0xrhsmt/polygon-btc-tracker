@@ -10,6 +10,7 @@ import { Tooltip } from 'react-tooltip'
 const GITHUB_URL = 'https://github.com/0xrhsmt/polygon-btc-tracker'
 
 export default function Page() {
+  const [btc, setBtc] = useState<any>();
   const [coins, setCoins] = useState([]);
 
   useEffect(() => {
@@ -17,7 +18,8 @@ export default function Page() {
       try {
         const response = await fetch('api/coins');
         const data = await response.json();
-        setCoins(data.data.sort((a, b) => a.order > b.order ? 1 : -1));
+        setCoins(data.data.filter((a) => a.order !== null).sort((a, b) => a.order > b.order ? 1 : -1));
+        setBtc(data.data.find((c) => c.coingecko_id === 'bitcoin'));
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -25,6 +27,17 @@ export default function Page() {
 
     fetchData();
   }, []);
+
+  const btcPrice = btc?.coingecko_price.market_data.current_price.usd ? new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  }).format(btc?.coingecko_price.market_data.current_price.usd) : '-'
+  const circulatingSupply = btc?.coingecko_price.market_data.circulating_supply ? new Intl.NumberFormat('en-US', {
+    style: 'decimal',
+  }).format(btc?.coingecko_price.market_data.circulating_supply) : '-'
+  const circulatingSupplyPolygon = coins.length > 0 ? new Intl.NumberFormat('en-US', {
+    style: 'decimal',
+  }).format(Math.ceil(coins.reduce((sum, c) => c.polygon_total_supply ?  sum + parseFloat(formatUnits(BigInt(c.polygon_total_supply), c.token_decimals)) : sum, 0.0))) : '-'  
 
   return (
     <div>
@@ -48,7 +61,26 @@ export default function Page() {
       </header>
 
       <div className="container mx-auto pt-6 px-1 sm:px-0">
-        <h2 className="text-2xl font-bold md:text-2xl mb-2">Bitcoin Pegged Tokens</h2>
+        <h2 className="text-2xl font-bold md:text-2xl mb-2">Bitcoin Overviews</h2>
+        <div className="flex flex-row justify-start items-center w-full  min-h-[175px] mb-8">
+          <div className="grid gap-6 grid-cols-1 sm:gap-20 lg:grid-cols-3 lg:gap-20">
+            <div>
+              <h4 className="text-lg sm:text-xl font-semibold text-gray-800">Price</h4>
+              <p className="mt-2 sm:mt-3 text-4xl sm:text-6xl font-bold text-purple-500">{btcPrice}</p>
+            </div>
+            <div>
+              <h4 className="text-lg sm:text-xl font-semibold text-gray-800">Circulating Supply (Total)</h4>
+              <p className="mt-2 sm:mt-3 text-4xl sm:text-6xl font-bold text-purple-500">{circulatingSupply}</p>
+
+            </div>
+            <div>
+              <h4 className="text-lg sm:text-xl font-semibold text-gray-800">Circulating Supply (Polygon)</h4>
+              <p className="mt-2 sm:mt-3 text-4xl sm:text-6xl font-bold text-purple-500">{circulatingSupplyPolygon}</p>
+            </div>
+          </div>
+        </div>
+
+        <h2 className="text-2xl font-bold md:text-2xl mb-10">Bitcoin Pegged Tokens</h2>
         <div className="flex flex-col">
           <div className="-m-1.5 overflow-x-auto">
             <div className="p-1.5 min-w-full inline-block align-middle">
@@ -66,7 +98,7 @@ export default function Page() {
                       </th>
                       <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
                         <div className="flex flex-row items-center justify-center space-x-1">
-                          <span>Circulation Supply (polygon | total) </span>
+                          <span>Circulating Supply (polygon | total) </span>
                           <QuestionMarkCircleIcon
                             className="h-5 w-5"
                             data-tooltip-id="my-tooltip"
