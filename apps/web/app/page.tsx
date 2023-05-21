@@ -17,8 +17,7 @@ export default function Page() {
       try {
         const response = await fetch('api/coins');
         const data = await response.json();
-        console.log(data.data[0].coingecko_price.market_data.circulating_supply)
-        setCoins(data.data);
+        setCoins(data.data.sort((a, b) => a.order > b.order ? 1 : -1));
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -82,39 +81,43 @@ export default function Page() {
                     {
                       coins.map((coin) => {
                         const coingeckoPrice = coin.coingecko_price
+                        if (!coingeckoPrice) {
+                          return null
+                        }
 
                         const iconUrl = coingeckoPrice.image.small
                         const tokenName = coingeckoPrice.name
-                        const volume = new Intl.NumberFormat('en-US', {
+                        const volume = coingeckoPrice.market_data.total_volume.usd ? new Intl.NumberFormat('en-US', {
                           style: 'currency',
                           currency: 'USD',
-                        }).format(coingeckoPrice.market_data.total_volume.usd);
-                        const marketCap = new Intl.NumberFormat('en-US', {
+                        }).format(coingeckoPrice.market_data.total_volume.usd) : '-'
+                        const marketCap = coingeckoPrice.market_data.market_cap.usd ? new Intl.NumberFormat('en-US', {
                           style: 'currency',
                           currency: 'USD',
-                        }).format(coingeckoPrice.market_data.market_cap.usd);
-                        const rawPolygonTokenHolders = coin.dune_holders_polygon_result?.rows[0]?.token_holders
+                        }).format(coingeckoPrice.market_data.market_cap.usd) : '-'
 
+                        const rawPolygonTokenHolders = coin.dune_holders_polygon_result?.rows[0]?.token_holders
                         const polygonHolders = rawPolygonTokenHolders >= 0 ? new Intl.NumberFormat('en-US', {
                           style: 'decimal',
-                        }).format(rawPolygonTokenHolders) : '--'
+                        }).format(rawPolygonTokenHolders) : '-'
+
                         const rawEthereumTokenHolders = coin.dune_holders_ethereum_result?.rows[0]?.token_holders
                         const ethereumHolders = rawEthereumTokenHolders >= 0 ? new Intl.NumberFormat('en-US', {
                           style: 'decimal',
-                        }).format(rawEthereumTokenHolders) : '--'
+                        }).format(rawEthereumTokenHolders) : '-'
 
                         const rawPolygonSupply = coin.polygon_total_supply !== undefined ? BigInt(coin.polygon_total_supply) : null
                         const polygonSupply = rawPolygonSupply ? new Intl.NumberFormat('en-US', {
                           style: 'decimal',
-                        }).format(parseFloat(formatUnits(rawPolygonSupply, 8))) : '--'
+                        }).format(parseFloat(formatUnits(rawPolygonSupply, coin.token_decimals))) : '-'
+
                         const rawEthereumSupply = coin.ethereum_total_supply !== undefined ? BigInt(coin.ethereum_total_supply) : null
                         const ethereumSupply = rawEthereumSupply ? new Intl.NumberFormat('en-US', {
                           style: 'decimal',
-                        }).format(parseFloat(formatUnits(rawEthereumSupply, 8))) : '--'
+                        }).format(parseFloat(formatUnits(rawEthereumSupply, coin.token_decimals))) : '-'
 
                         const coingeckoUrl = `https://www.coingecko.com/en/coins/${coin.coingecko_id}`
-                        const polygonScanURL = `https://polygonscan.com/token/${coin.polygon_contract_address}`
-
+                        const polygonScanURL = coin.polygon_contract_address ? `https://polygonscan.com/token/${coin.polygon_contract_address}` : null
 
                         return (
                           <tr key={coin.coingecko_id}>
@@ -134,9 +137,15 @@ export default function Page() {
                                   <Image src="/coingecko-logo.png" alt="Github" width={27} height={27} />
                                 </a>
 
-                                <a className='cursor-pointer' href={polygonScanURL} target="_blank" rel="noopener noreferrer">
-                                  <Image src="/polygonscan-logo.jpeg" alt="Github" width={27} height={27} />
-                                </a>
+                                {
+                                  polygonScanURL ? (
+                                    <a className='cursor-pointer' href={polygonScanURL} target="_blank" rel="noopener noreferrer">
+                                      <Image src="/polygonscan-logo.png" alt="Github" width={27} height={27} />
+                                    </a>
+                                  ) : (
+                                    <Image src="/polygonscan-logo.png" alt="Github" width={27} height={27} className='brightness-50' />
+                                  )
+                                }
                               </div>
                             </td>
                           </tr>
