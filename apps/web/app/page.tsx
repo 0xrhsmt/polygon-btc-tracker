@@ -1,7 +1,7 @@
 "use client";
 
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/solid'
-import { InformationCircleIcon } from '@heroicons/react/24/outline'
+import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { formatUnits } from 'viem';
@@ -67,12 +67,17 @@ export default function Page() {
                       <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase ">Market Cap (Total)</th>
                       <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase ">
                         <div className="flex flex-row items-center justify-center space-x-1">
-                          <span>Holders (polygon | ethereum) </span><InformationCircleIcon className="h-5 w-5" data-tooltip-id="my-tooltip" data-tooltip-content="TODO" />
+                          <span>Holders (polygon | ethereum) </span><QuestionMarkCircleIcon className="h-5 w-5" data-tooltip-id="my-tooltip" data-tooltip-content="Calculated every 24 hours." />
                         </div>
                       </th>
                       <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
                         <div className="flex flex-row items-center justify-center space-x-1">
-                          <span>Circulation Supply (polygon | total) </span><InformationCircleIcon className="h-5 w-5" data-tooltip-id="my-tooltip" data-tooltip-content="TODO" />
+                          <span>Circulation Supply (polygon | total) </span>
+                          <QuestionMarkCircleIcon
+                            className="h-5 w-5"
+                            data-tooltip-id="my-tooltip"
+                            data-tooltip-html={`Calculated every 24 hours.<br />The circulating supply of Polygon is referenced from the values of on-chain data,<br />while the total circulating supply is referenced from the values of the Coingecko API.`}
+                          />
                         </div>
                       </th>
                       <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase ">Links</th>
@@ -139,7 +144,7 @@ export default function Page() {
           </div>
         </div>
 
-        <Tooltip id="my-tooltip" />
+        <Tooltip id="my-tooltip"  />
       </div>
     </div>
   );
