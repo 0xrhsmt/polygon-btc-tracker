@@ -30,7 +30,7 @@ export default function Page() {
   return (
     <div>
       <header className="flex justify-start z-50 w-full bg-purple-600 border-b border-white/[.5] text-sm py-3 sm:py-0">
-        <nav className="relative max-w-[85rem] w-full mx-auto px-4 flex items-center justify-between px-6 lg:px-8" aria-label="Global">
+        <nav className="relative container mx-auto px-1 sm:px-0 w-full flex items-center justify-between  " aria-label="Global">
           <div className="flex items-center justify-between w-full">
             <a className="flex items-center text-xl font-semibold text-white cursor-pointer space-x-2" href="#" aria-label="Brand">
               <Image src="/logo.png" alt="Github" width={30} height={30} />
@@ -50,10 +50,6 @@ export default function Page() {
 
       <div className="container mx-auto pt-6 px-1 sm:px-0">
         <h2 className="text-2xl font-bold md:text-2xl mb-2">Bitcoin Pegged Tokens</h2>
-
-
-
-
         <div className="flex flex-col">
           <div className="-m-1.5 overflow-x-auto">
             <div className="p-1.5 min-w-full inline-block align-middle">
@@ -87,7 +83,7 @@ export default function Page() {
                       coins.map((coin) => {
                         const coingeckoPrice = coin.coingecko_price
 
-                        const iconUrl = coingeckoPrice.image.thumb
+                        const iconUrl = coingeckoPrice.image.small
                         const tokenName = coingeckoPrice.name
                         const volume = new Intl.NumberFormat('en-US', {
                           style: 'currency',
@@ -124,7 +120,7 @@ export default function Page() {
                           <tr key={coin.coingecko_id}>
                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 ">
                               <div className="flex items-center space-x-1">
-                                <img src={iconUrl} /> <span>{tokenName}</span>
+                                <img className='w-[25px] h-[25px]' src={iconUrl} /> <span>{tokenName}</span>
                               </div>
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 ">{volume}</td>
@@ -141,7 +137,7 @@ export default function Page() {
                                 <a className='cursor-pointer' href={polygonScanURL} target="_blank" rel="noopener noreferrer">
                                   <Image src="/polygonscan-logo.jpeg" alt="Github" width={27} height={27} />
                                 </a>
-                                </div>
+                              </div>
                             </td>
                           </tr>
                         )
