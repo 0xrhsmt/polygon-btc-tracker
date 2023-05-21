@@ -7,7 +7,6 @@ import { useEffect, useState } from 'react';
 import { formatUnits } from 'viem';
 import { Tooltip } from 'react-tooltip'
 
-
 const GITHUB_URL = 'https://github.com/0xrhsmt/polygon-btc-tracker'
 
 export default function Page() {
@@ -117,6 +116,9 @@ export default function Page() {
                           style: 'decimal',
                         }).format(parseFloat(formatUnits(rawEthereumSupply, 8))) : '--'
 
+                        const coingeckoUrl = `https://www.coingecko.com/en/coins/${coin.coingecko_id}`
+                        const polygonScanURL = `https://polygonscan.com/token/${coin.polygon_contract_address}`
+
 
                         return (
                           <tr key={coin.coingecko_id}>
@@ -131,7 +133,15 @@ export default function Page() {
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 ">{polygonSupply} | {ethereumSupply}</td>
 
                             <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                              <a className="text-purple-500 hover:text-purple-700" href="#">TODO</a>
+                              <div className='flex flex-row space-x-3'>
+                                <a className='cursor-pointer' href={coingeckoUrl} target="_blank" rel="noopener noreferrer">
+                                  <Image src="/coingecko-logo.png" alt="Github" width={27} height={27} />
+                                </a>
+
+                                <a className='cursor-pointer' href={polygonScanURL} target="_blank" rel="noopener noreferrer">
+                                  <Image src="/polygonscan-logo.jpeg" alt="Github" width={27} height={27} />
+                                </a>
+                                </div>
                             </td>
                           </tr>
                         )
@@ -144,7 +154,7 @@ export default function Page() {
           </div>
         </div>
 
-        <Tooltip id="my-tooltip"  />
+        <Tooltip id="my-tooltip" />
       </div>
     </div>
   );
