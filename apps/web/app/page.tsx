@@ -1,8 +1,12 @@
 "use client";
 
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/solid'
+import { InformationCircleIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import { formatUnits } from 'viem';
+import { Tooltip } from 'react-tooltip'
+
 
 const GITHUB_URL = 'https://github.com/0xrhsmt/polygon-btc-tracker'
 
@@ -47,6 +51,10 @@ export default function Page() {
 
       <div className="container mx-auto pt-6 px-1 sm:px-0">
         <h2 className="text-2xl font-bold md:text-2xl mb-2">Bitcoin Pegged Tokens</h2>
+
+
+
+
         <div className="flex flex-col">
           <div className="-m-1.5 overflow-x-auto">
             <div className="p-1.5 min-w-full inline-block align-middle">
@@ -55,15 +63,27 @@ export default function Page() {
                   <thead className="bg-gray-50">
                     <tr>
                       <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase ">Token Name</th>
-                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase ">Volume</th>
-                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase ">Market Cap</th>
-                      <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase ">Details</th>
+                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase ">Volume (Total)</th>
+                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase ">Market Cap (Total)</th>
+                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase ">
+                        <div className="flex flex-row items-center justify-center space-x-1">
+                          <span>Holders (polygon | ethereum) </span><InformationCircleIcon className="h-5 w-5" data-tooltip-id="my-tooltip" data-tooltip-content="TODO" />
+                        </div>
+                      </th>
+                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                        <div className="flex flex-row items-center justify-center space-x-1">
+                          <span>Circulation Supply (polygon | total) </span><InformationCircleIcon className="h-5 w-5" data-tooltip-id="my-tooltip" data-tooltip-content="TODO" />
+                        </div>
+                      </th>
+                      <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase ">Links</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200 ">
                     {
                       coins.map((coin) => {
                         const coingeckoPrice = coin.coingecko_price
+
+                        const iconUrl = coingeckoPrice.image.thumb
                         const tokenName = coingeckoPrice.name
                         const volume = new Intl.NumberFormat('en-US', {
                           style: 'currency',
@@ -73,12 +93,37 @@ export default function Page() {
                           style: 'currency',
                           currency: 'USD',
                         }).format(coingeckoPrice.market_data.market_cap.usd);
+                        const rawPolygonTokenHolders = coin.dune_holders_polygon_result?.rows[0]?.token_holders
+
+                        const polygonHolders = rawPolygonTokenHolders >= 0 ? new Intl.NumberFormat('en-US', {
+                          style: 'decimal',
+                        }).format(rawPolygonTokenHolders) : '--'
+                        const rawEthereumTokenHolders = coin.dune_holders_ethereum_result?.rows[0]?.token_holders
+                        const ethereumHolders = rawEthereumTokenHolders >= 0 ? new Intl.NumberFormat('en-US', {
+                          style: 'decimal',
+                        }).format(rawEthereumTokenHolders) : '--'
+
+                        const rawPolygonSupply = coin.polygon_total_supply !== undefined ? BigInt(coin.polygon_total_supply) : null
+                        const polygonSupply = rawPolygonSupply ? new Intl.NumberFormat('en-US', {
+                          style: 'decimal',
+                        }).format(parseFloat(formatUnits(rawPolygonSupply, 8))) : '--'
+                        const rawEthereumSupply = coin.ethereum_total_supply !== undefined ? BigInt(coin.ethereum_total_supply) : null
+                        const ethereumSupply = rawEthereumSupply ? new Intl.NumberFormat('en-US', {
+                          style: 'decimal',
+                        }).format(parseFloat(formatUnits(rawEthereumSupply, 8))) : '--'
+
 
                         return (
                           <tr key={coin.coingecko_id}>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 ">{tokenName}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 ">
+                              <div className="flex items-center space-x-1">
+                                <img src={iconUrl} /> <span>{tokenName}</span>
+                              </div>
+                            </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 ">{volume}</td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 ">{marketCap}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 ">{polygonHolders} | {ethereumHolders}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 ">{polygonSupply} | {ethereumSupply}</td>
 
                             <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                               <a className="text-purple-500 hover:text-purple-700" href="#">TODO</a>
@@ -93,6 +138,8 @@ export default function Page() {
             </div>
           </div>
         </div>
+
+        <Tooltip id="my-tooltip" />
       </div>
     </div>
   );
