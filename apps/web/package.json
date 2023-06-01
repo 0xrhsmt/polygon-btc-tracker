@@ -26,7 +26,6 @@
     "react-modal": "^3.16.1",
     "react-tooltip": "^5.13.1",
     "tailwindcss": "^3.3.2",
-    "ui": "workspace:*",
     "utf-8-validate": "^6.0.3",
     "viem": "^0.3.31"
   },
