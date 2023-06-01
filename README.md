@@ -42,7 +42,7 @@ TODO: paste url
 * node　18.x
 * pnpm 8.x
 * [turborepo cli](https://turbo.build/repo/docs/installing#install-globally)
-* Vercel Pro or Hobby Plan
+* [Vercel Pro or Hobby Plan](https://vercel.com/pricing)
 
 ### Setup
 
@@ -56,8 +56,9 @@ $pnpm install
 ```
 
 #### Creating Vercel KV
-You need to create a Vercel KV (Key-Value) and copy the environment variables related to the KV into your `.env` file.<br>
-ref. [Vercel KV Quickstart](https://vercel.com/docs/storage/vercel-kv/quickstart#quickstart)
+
+* You need to create a Vercel KV (Key-Value) and copy the environment variables related to the KV into your `.env` file.<br>
+  * ref. [Vercel KV Quickstart](https://vercel.com/docs/storage/vercel-kv/quickstart#quickstart)
 
 
 ### Run
@@ -72,15 +73,16 @@ $open http://localhost:3000
 ## Production Deployment
 ### Requirements
 
-* Vercel Pro Plan　(You will need the Vercel Pro Plan because this app requires the use of more than three Vercel Cron Jobs.)
+* [Vercel Pro Plan](https://vercel.com/pricing)
+  * You will need the Vercel Pro Plan because this app requires the use of more than three Vercel Cron Jobs.
 
 ## Useful Links
 
-- [Turborepo](https://turbo.build/repo)
-- [Coingecko API](https://www.coingecko.com/en/api)
-  [Dune API](https://dune.com/docs/api/)
-- [Vercel Storage](https://vercel.com/docs/storage)
-- [Vercel Cron](https://vercel.com/docs/cron-jobs)
+* [Turborepo](https://turbo.build/repo)
+* [Coingecko API](https://www.coingecko.com/en/api)
+* [Dune API](https://dune.com/docs/api/)
+* [Vercel Storage](https://vercel.com/docs/storage)
+* [Vercel Cron](https://vercel.com/docs/cron-jobs)
 
 ## License
 
