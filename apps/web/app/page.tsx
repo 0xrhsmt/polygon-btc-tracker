@@ -252,7 +252,7 @@ export default function Page() {
         contentLabel="Example Modal"
       >
         {
-          modalState.chain && modalState.tokenAddress && <iframe src={`https://dune.com/embeds/2492561/4306452/?TARGET_CHAIN=${modalState.chain}&TARGET_TOKEN_ADDRESS=${modalState.tokenAddress.toLowerCase()}`} className='max-h-[100vh] max-w-[100%] h-[500px] w-[1000px]' name={Date.now().toString()}></iframe>
+          modalState.chain && modalState.tokenAddress && <iframe src={`https://dune.com/embeds/2492561/4306452?TARGET_CHAIN=${encodeURIComponent(modalState.chain)}&TARGET_TOKEN_ADDRESS=${encodeURIComponent(modalState.tokenAddress.toLowerCase())}`} className='max-h-[100vh] max-w-[100%] h-[500px] w-[1000px]' name={Date.now().toString()}></iframe>
         }
       </Modal>
     </div>
