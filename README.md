@@ -1,14 +1,17 @@
 # Polygon BTC Tracker
 
-This is a simple app that tracks the metrics of BTCs on Polygon. 
-There are more than six types of Bridged BTC, and you can see their current status through basic metrics.
-Also, it has also been implemented to be able to accommodate any increase in the types of Bridged BTC in the future.
+<img src="docs/screenshot.png" width="500"><br>
+
+This is a simple app that tracks the metrics of BTCs on Polygon.<br>
+There are more than six types of Bridged BTC, and you can see their current status through basic metrics.<br>
+Also, it has also been implemented to be able to accommodate any increase in the types of Bridged BTC in the future.<br>
+
 
 ## Demonstrations
 
 ### Live Demo
 
-TODO: paste url
+https://polygon-btc-tracker-web.vercel.app/
 
 ### Demo Video
 
@@ -16,9 +19,14 @@ TODO: paste url
 
 ## Architecture
 
-TODO: image
+<img src="docs/architecture.png" width="500"><br>
 
-### Metrics And Data Sources
+### Used Technologies
+* Vercel
+  * Vercel KV Storage
+  * Vercel Cron Jobs
+
+## Data Sources
 
 |  Metrics  |  Data Source  | Description |
 | ---- | ---- | ---- |
@@ -31,32 +39,49 @@ TODO: image
 
 ### Requirements
 
-* node
-* turborepo
-* pnpm
+* node　18.x
+* pnpm 8.x
+* [turborepo cli](https://turbo.build/repo/docs/installing#install-globally)
+* Vercel Pro or Hobby Plan
 
-TODO: node version の指定
+### Setup
 
-### How to run it
+#### Installation
+```bash
+# duplicate the .env.sample file and edit the .env file.
+$cp apps/web/.env.sample apps/web/.env
 
-* install,
-* turbo run dev
-* open http://localhost:3000
-* env とかも必要かも
+# install dependencies
+$pnpm install
+```
+
+#### Creating Vercel KV
+You need to create a Vercel KV (Key-Value) and copy the environment variables related to the KV into your `.env` file.<br>
+ref. [Vercel KV Quickstart](https://vercel.com/docs/storage/vercel-kv/quickstart#quickstart)
+
+
+### Run
+
+```bash
+# run dev server
+$turbo run dev
+
+$open http://localhost:3000
+```
 
 ## Production Deployment
+### Requirements
 
-## Commands
-### Seed Data
-
-### Add new Bridged BTC
-
-## License
+* Vercel Pro Plan　(You will need the Vercel Pro Plan because this app requires the use of more than three Vercel Cron Jobs.)
 
 ## Useful Links
 
-- [Turborepo](TODO)
-- [Coingecko API](TODO)
-  [Dune API](TODO)
-- [Vercel Storage](TODO)
-- [Vercel Cron](TODO)
+- [Turborepo](https://turbo.build/repo)
+- [Coingecko API](https://www.coingecko.com/en/api)
+  [Dune API](https://dune.com/docs/api/)
+- [Vercel Storage](https://vercel.com/docs/storage)
+- [Vercel Cron](https://vercel.com/docs/cron-jobs)
+
+## License
+
+This app is open-source and licensed under the MIT license. For more details, check the [License file](LICENSE).
