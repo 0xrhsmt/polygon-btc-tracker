@@ -251,6 +251,10 @@ export default function Page() {
         style={MODAL_STYLES}
         contentLabel="Example Modal"
       >
+        {/*
+          Even when I change the parameters, the same graph is displayed. I'm currently contacting Dune team about the cause of this bug.
+          ref: https://discord.com/channels/757637422384283659/799689116920709170/1113729147894775828
+        */}
         {
           modalState.chain && modalState.tokenAddress && <iframe src={`https://dune.com/embeds/2492561/4306452?TARGET_CHAIN=${encodeURIComponent(modalState.chain)}&TARGET_TOKEN_ADDRESS=${encodeURIComponent(modalState.tokenAddress.toLowerCase())}`} className='max-h-[100vh] max-w-[100%] h-[500px] w-[1000px]' name={Date.now().toString()}></iframe>
         }
