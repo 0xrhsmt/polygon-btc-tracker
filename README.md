@@ -1,80 +1,62 @@
-# Turborepo starter
+# Polygon BTC Tracker
 
-This is an official starter Turborepo.
+This is a simple app that tracks the metrics of BTCs on Polygon. 
+There are more than six types of Bridged BTC, and you can see their current status through basic metrics.
+Also, it has also been implemented to be able to accommodate any increase in the types of Bridged BTC in the future.
 
-## Using this example
+## Demonstrations
 
-Run the following command:
+### Live Demo
 
-```sh
-npx create-turbo@latest
-```
+TODO: paste url
 
-## What's inside?
+### Demo Video
 
-This Turborepo includes the following packages/apps:
+TODO: paste url
 
-### Apps and Packages
+## Architecture
 
-- `web`: another [Next.js](https://nextjs.org/) app
-- `ui`: a stub React component library shared by both `web` applications
-- `eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `tsconfig`: `tsconfig.json`s used throughout the monorepo
+TODO: image
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+### Metrics And Data Sources
 
-### Utilities
+|  Metrics  |  Data Source  | Description |
+| ---- | ---- | ---- |
+|  Volume |  CoinGecko API  |  Utilizing the [CoinGecko Public API](https://www.coingecko.com/en/api).  |
+|  Market Cap |  CoinGecko API |  Utilizing the [CoinGecko Public API](https://www.coingecko.com/en/api).  |
+|  Holders |  Dune API |  [The Dune Query](https://dune.com/queries/2492386) has been created to obtain the number of BTC holders, which is invoked using [the Dune API](https://dune.com/docs/api/).  |
+|  Circulating Supply |  Polygon (Ethereum) JSON-RPC API |  The `totalSupply` function is called from the JSON-RPC API to retrieve the value.  |
 
-This Turborepo has some additional tools already setup for you:
+## Development
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+### Requirements
 
-### Build
+* node
+* turborepo
+* pnpm
 
-To build all apps and packages, run the following command:
+TODO: node version の指定
 
-```
-cd my-turborepo
-pnpm build
-```
+### How to run it
 
-### Develop
+* install,
+* turbo run dev
+* open http://localhost:3000
+* env とかも必要かも
 
-To develop all apps and packages, run the following command:
+## Production Deployment
 
-```
-cd my-turborepo
-pnpm dev
-```
+## Commands
+### Seed Data
 
-### Remote Caching
+### Add new Bridged BTC
 
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-npx turbo link
-```
+## License
 
 ## Useful Links
 
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+- [Turborepo](TODO)
+- [Coingecko API](TODO)
+  [Dune API](TODO)
+- [Vercel Storage](TODO)
+- [Vercel Cron](TODO)
