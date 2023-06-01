@@ -66,16 +66,16 @@ export default function Page() {
           <div className="grid gap-6 grid-cols-1 sm:gap-20 lg:grid-cols-3 lg:gap-20">
             <div>
               <h4 className="text-lg sm:text-xl font-semibold text-gray-800">Price</h4>
-              <p className="mt-2 sm:mt-3 text-4xl sm:text-6xl font-bold text-purple-500">{btcPrice}</p>
+              <p className="mt-2 sm:mt-3 text-4xl sm:text-6xl font-bold text-purple-500 underline underline-offset-4">{btcPrice}</p>
             </div>
             <div>
               <h4 className="text-lg sm:text-xl font-semibold text-gray-800">Circulating Supply (Total)</h4>
-              <p className="mt-2 sm:mt-3 text-4xl sm:text-6xl font-bold text-purple-500">{circulatingSupply}</p>
+              <p className="mt-2 sm:mt-3 text-4xl sm:text-6xl font-bold text-purple-500 underline underline-offset-4">{circulatingSupply}</p>
 
             </div>
             <div>
               <h4 className="text-lg sm:text-xl font-semibold text-gray-800">Circulating Supply (Polygon)</h4>
-              <p className="mt-2 sm:mt-3 text-4xl sm:text-6xl font-bold text-purple-500">{circulatingSupplyPolygon}</p>
+              <p className="mt-2 sm:mt-3 text-4xl sm:text-6xl font-bold text-purple-500 underline underline-offset-4">{circulatingSupplyPolygon}</p>
             </div>
           </div>
         </div>
