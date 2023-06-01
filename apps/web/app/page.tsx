@@ -245,7 +245,6 @@ export default function Page() {
         <Tooltip id="my-tooltip" />
       </div>
 
-{JSON.stringify(modalState)}
       <Modal
         isOpen={modalState.open}
         onRequestClose={closeModal}
