@@ -3,15 +3,32 @@
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/solid'
 import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { formatUnits } from 'viem';
 import { Tooltip } from 'react-tooltip'
+import Modal from 'react-modal';
+
+const MODAL_STYLES = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+  },
+};
 
 const GITHUB_URL = 'https://github.com/0xrhsmt/polygon-btc-tracker'
 
 export default function Page() {
   const [btc, setBtc] = useState<any>();
   const [coins, setCoins] = useState([]);
+  const [modalState, setModalState] = useState({
+    open: false,
+    chain: undefined,
+    tokenAddress: undefined,
+  });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -37,7 +54,23 @@ export default function Page() {
   }).format(btc?.coingecko_price.market_data.circulating_supply) : '-'
   const circulatingSupplyPolygon = coins.length > 0 ? new Intl.NumberFormat('en-US', {
     style: 'decimal',
-  }).format(Math.ceil(coins.reduce((sum, c) => c.polygon_total_supply ?  sum + parseFloat(formatUnits(BigInt(c.polygon_total_supply), c.token_decimals)) : sum, 0.0))) : '-'  
+  }).format(Math.ceil(coins.reduce((sum, c) => c.polygon_total_supply ? sum + parseFloat(formatUnits(BigInt(c.polygon_total_supply), c.token_decimals)) : sum, 0.0))) : '-'
+
+  const openModal = useCallback((chain: string, tokenAddress: string) => {
+    setModalState({
+      open: true,
+      chain,
+      tokenAddress,
+    })
+  }, [])
+
+  const closeModal = useCallback(() => {
+    setModalState({
+      open: false,
+      chain: undefined,
+      tokenAddress: undefined,
+    })
+  }, [])
 
   return (
     <div>
@@ -129,12 +162,14 @@ export default function Page() {
                         }).format(coingeckoPrice.market_data.market_cap.usd) : '-'
 
                         const rawPolygonTokenHolders = coin.dune_holders_polygon_result?.rows[0]?.token_holders
-                        const polygonHolders = rawPolygonTokenHolders >= 0 ? new Intl.NumberFormat('en-US', {
+                        const isShowPolygonTokenHolders = rawPolygonTokenHolders >= 0
+                        const polygonHolders = isShowPolygonTokenHolders ? new Intl.NumberFormat('en-US', {
                           style: 'decimal',
                         }).format(rawPolygonTokenHolders) : '-'
 
                         const rawEthereumTokenHolders = coin.dune_holders_ethereum_result?.rows[0]?.token_holders
-                        const ethereumHolders = rawEthereumTokenHolders >= 0 ? new Intl.NumberFormat('en-US', {
+                        const isShowEthereumTokenHolders = rawEthereumTokenHolders >= 0
+                        const ethereumHolders = isShowEthereumTokenHolders ? new Intl.NumberFormat('en-US', {
                           style: 'decimal',
                         }).format(rawEthereumTokenHolders) : '-'
 
@@ -155,12 +190,28 @@ export default function Page() {
                           <tr key={coin.coingecko_id}>
                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 ">
                               <div className="flex items-center space-x-1">
-                                <img className='w-[25px] h-[25px]' src={iconUrl} alt="token-icon"/> <span>{tokenName}</span>
+                                <img className='w-[25px] h-[25px]' src={iconUrl} alt="token-icon" /> <span>{tokenName}</span>
                               </div>
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 ">{volume}</td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 ">{marketCap}</td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 ">{polygonHolders} | {ethereumHolders}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 ">
+                              {
+                                isShowPolygonTokenHolders ? (
+                                  <span onClick={() => openModal("erc20_polygon.evt_Transfer", coin.polygon_contract_address)} className='underline cursor-pointer text-[#EB5B43] decoration-[#EB5B43]'>{polygonHolders}</span>
+                                ) : (
+                                  <span>{polygonHolders}</span>
+                                )
+                              }
+                              &nbsp;|&nbsp;
+                              {
+                                isShowEthereumTokenHolders ? (
+                                  <span onClick={() => openModal("erc20_ethereum.evt_Transfer", coin.ethereum_contract_address)} className='underline cursor-pointer text-[#EB5B43] decoration-[#EB5B43]'>{ethereumHolders}</span>
+                                ) : (
+                                  <span>{ethereumHolders}</span>
+                                )
+                              }
+                            </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 ">{polygonSupply} | {ethereumSupply}</td>
 
                             <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
@@ -193,6 +244,18 @@ export default function Page() {
 
         <Tooltip id="my-tooltip" />
       </div>
+
+{JSON.stringify(modalState)}
+      <Modal
+        isOpen={modalState.open}
+        onRequestClose={closeModal}
+        style={MODAL_STYLES}
+        contentLabel="Example Modal"
+      >
+        {
+          modalState.chain && modalState.tokenAddress && <iframe src={`https://dune.com/embeds/2492561/4306452/?TARGET_CHAIN=${modalState.chain}&TARGET_TOKEN_ADDRESS=${modalState.tokenAddress.toLowerCase()}`} className='max-h-[100vh] max-w-[100%] h-[500px] w-[1000px]' name={Date.now().toString()}></iframe>
+        }
+      </Modal>
     </div>
   );
 }

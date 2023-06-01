@@ -23,6 +23,7 @@
     "preline": "^1.8.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-modal": "^3.16.1",
     "react-tooltip": "^5.13.1",
     "tailwindcss": "^3.3.2",
     "ui": "workspace:*",
