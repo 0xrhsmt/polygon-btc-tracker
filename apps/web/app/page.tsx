@@ -86,7 +86,7 @@ export default function Page() {
             <div className="flex flex-row tems-center justify-end gap-y-0 gap-x-7 mt-0 pl-7">
               <a className="flex flex-row items-center space-x-1 font-medium text-white underline cursor-pointer sm:py-6" href={GITHUB_URL} target="_blank" rel="noopener noreferrer">
                 <span>Github</span>
-                <ArrowTopRightOnSquareIcon className="h-4 w-4" />
+                <ArrowTopRightOnSquareIcon className="h-4 w-4 min-w-max min-h-max" />
               </a>
             </div>
           </div>
@@ -94,8 +94,8 @@ export default function Page() {
       </header>
 
       <div className="container mx-auto pt-6 px-1 sm:px-0">
-        <h2 className="text-2xl font-bold md:text-2xl mb-2">Bitcoin Overviews</h2>
-        <div className="flex flex-row justify-start items-center w-full  min-h-[175px] mb-8">
+        <h2 className="text-2xl font-bold md:text-2xl">Bitcoin Overviews</h2>
+        <div className="flex flex-row justify-start items-center w-full min-h-[175px] mb-8">
           <div className="grid gap-6 grid-cols-1 sm:gap-20 lg:grid-cols-3 lg:gap-20">
             <div>
               <h4 className="text-lg sm:text-xl font-semibold text-gray-800">Price</h4>
@@ -113,7 +113,7 @@ export default function Page() {
           </div>
         </div>
 
-        <h2 className="text-2xl font-bold md:text-2xl mb-8">Bitcoin Pegged Tokens</h2>
+        <h2 className="text-2xl font-bold md:text-2xl mb-6">Bitcoin Pegged Tokens</h2>
         <div className="flex flex-col">
           <div className="-m-1.5 overflow-x-auto">
             <div className="p-1.5 min-w-full inline-block align-middle">
@@ -125,21 +125,21 @@ export default function Page() {
                       <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase ">Volume (Total)</th>
                       <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase ">Market Cap (Total)</th>
                       <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase ">
-                        <div className="flex flex-row items-center justify-center space-x-1">
-                          <span>Holders (polygon | ethereum) </span><QuestionMarkCircleIcon className="h-5 w-5" data-tooltip-id="my-tooltip" data-tooltip-content="Calculated every 24 hours." />
+                        <div className="flex flex-row items-center justify-start space-x-1">
+                          <span>Holders (polygon | ethereum) </span><QuestionMarkCircleIcon className="h-5 w-5 min-w-max min-h-max" data-tooltip-id="my-tooltip" data-tooltip-content="Calculated every 24 hours." />
                         </div>
                       </th>
                       <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                        <div className="flex flex-row items-center justify-center space-x-1">
+                        <div className="flex flex-row items-center justify-start space-x-1">
                           <span>Circulating Supply (polygon | total) </span>
                           <QuestionMarkCircleIcon
-                            className="h-5 w-5"
+                            className="h-5 w-5 min-w-max min-h-max"
                             data-tooltip-id="my-tooltip"
                             data-tooltip-html={`Calculated every 24 hours.<br />The circulating supply of Polygon is referenced from the values of on-chain data,<br />while the total circulating supply is referenced from the values of the Coingecko API.`}
                           />
                         </div>
                       </th>
-                      <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase ">Links</th>
+                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase ">Links</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200 ">
@@ -216,13 +216,13 @@ export default function Page() {
 
                             <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                               <div className='flex flex-row space-x-3'>
-                                <a className='cursor-pointer' href={coingeckoUrl} target="_blank" rel="noopener noreferrer">
+                                <a className='cursor-pointer min-h-max min-w-max' href={coingeckoUrl} target="_blank" rel="noopener noreferrer">
                                   <Image src="/coingecko-logo.png" alt="Github" width={27} height={27} />
                                 </a>
 
                                 {
                                   polygonScanURL ? (
-                                    <a className='cursor-pointer' href={polygonScanURL} target="_blank" rel="noopener noreferrer">
+                                    <a className='cursor-pointer min-h-max min-w-max' href={polygonScanURL} target="_blank" rel="noopener noreferrer">
                                       <Image src="/polygonscan-logo.png" alt="Github" width={27} height={27} />
                                     </a>
                                   ) : (
