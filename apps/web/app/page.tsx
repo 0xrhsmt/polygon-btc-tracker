@@ -155,7 +155,7 @@ export default function Page() {
                           <tr key={coin.coingecko_id}>
                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 ">
                               <div className="flex items-center space-x-1">
-                                <img className='w-[25px] h-[25px]' src={iconUrl} /> <span>{tokenName}</span>
+                                <img className='w-[25px] h-[25px]' src={iconUrl} alt="token-icon"/> <span>{tokenName}</span>
                               </div>
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 ">{volume}</td>

@@ -31,6 +31,9 @@ importers:
       autoprefixer:
         specifier: ^10.4.14
         version: 10.4.14(postcss@8.4.23)
+      bufferutil:
+        specifier: ^4.0.7
+        version: 4.0.7
       dayjs:
         specifier: ^1.11.7
         version: 1.11.7
@@ -61,9 +64,12 @@ importers:
       ui:
         specifier: workspace:*
         version: link:../../packages/ui
+      utf-8-validate:
+        specifier: ^6.0.3
+        version: 6.0.3
       viem:
         specifier: ^0.3.31
-        version: 0.3.31(typescript@4.9.5)
+        version: 0.3.31(bufferutil@4.0.7)(typescript@4.9.5)(utf-8-validate@6.0.3)
     devDependencies:
       '@types/node':
         specifier: ^17.0.12
@@ -797,6 +803,14 @@ packages:
       electron-to-chromium: 1.4.401
       node-releases: 2.0.10
       update-browserslist-db: 1.0.11(browserslist@4.21.5)
+    dev: false
+
+  /bufferutil@4.0.7:
+    resolution: {integrity: sha512-kukuqc39WOHtdxtw4UScxF/WVnMFVSQVKhtx3AjZJzhd0RGZZldcrfSEbVsWWe6KNH253574cq5F+wpv0G9pJw==}
+    engines: {node: '>=6.14.2'}
+    requiresBuild: true
+    dependencies:
+      node-gyp-build: 4.6.0
     dev: false
 
   /bundle-name@3.0.0:
@@ -2048,7 +2062,7 @@ packages:
     peerDependencies:
       ws: '*'
     dependencies:
-      ws: 8.12.0
+      ws: 8.12.0(bufferutil@4.0.7)(utf-8-validate@6.0.3)
     dev: false
 
   /jiti@1.18.2:
@@ -2254,6 +2268,11 @@ packages:
     dependencies:
       encoding: 0.1.13
       whatwg-url: 5.0.0
+    dev: false
+
+  /node-gyp-build@4.6.0:
+    resolution: {integrity: sha512-NTZVKn9IylLwUzaKjkas1e4u2DLNcV4rdYagA4PWdPwW87Bi7z+BznyKSRwS/761tV/lzCGXplWsiaMjLqP2zQ==}
+    hasBin: true
     dev: false
 
   /node-releases@2.0.10:
@@ -3142,6 +3161,14 @@ packages:
     dependencies:
       punycode: 2.3.0
 
+  /utf-8-validate@6.0.3:
+    resolution: {integrity: sha512-uIuGf9TWQ/y+0Lp+KGZCMuJWc3N9BHA+l/UmHd/oUHwJJDeysyTRxNQVkbzsIWfGFbRe3OcgML/i0mvVRPOyDA==}
+    engines: {node: '>=6.14.2'}
+    requiresBuild: true
+    dependencies:
+      node-gyp-build: 4.6.0
+    dev: false
+
   /util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
     dev: false
@@ -3152,7 +3179,7 @@ packages:
   /v8-compile-cache@2.3.0:
     resolution: {integrity: sha512-l8lCEmLcLYZh4nbunNZvQCJc5pv7+RCwa8q/LdUx8u7lsWvPDKmpodJAJNwkAhJC//dFY48KuIEmjtd4RViDrA==}
 
-  /viem@0.3.31(typescript@4.9.5):
+  /viem@0.3.31(bufferutil@4.0.7)(typescript@4.9.5)(utf-8-validate@6.0.3):
     resolution: {integrity: sha512-4B7oUQkYCGmnd/W+T/miFudx/pZ3V3mRdv3nl1tPy60W5Zlt2lIH+XN9Q0pkHe+5n2Eto/aFZYwRdqGsj6MHmA==}
     dependencies:
       '@adraffy/ens-normalize': 1.9.0
@@ -3163,7 +3190,7 @@ packages:
       '@wagmi/chains': 0.2.16(typescript@4.9.5)
       abitype: 0.8.2(typescript@4.9.5)
       isomorphic-ws: 5.0.0(ws@8.12.0)
-      ws: 8.12.0
+      ws: 8.12.0(bufferutil@4.0.7)(utf-8-validate@6.0.3)
     transitivePeerDependencies:
       - bufferutil
       - typescript
@@ -3230,7 +3257,7 @@ packages:
   /wrappy@1.0.2:
     resolution: {integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==}
 
-  /ws@8.12.0:
+  /ws@8.12.0(bufferutil@4.0.7)(utf-8-validate@6.0.3):
     resolution: {integrity: sha512-kU62emKIdKVeEIOIKVegvqpXMSTAMLJozpHZaJNDYqBjzlSYXQGviYwN1osDLJ9av68qHd4a2oSjd7yD4pacig==}
     engines: {node: '>=10.0.0'}
     peerDependencies:
@@ -3241,6 +3268,9 @@ packages:
         optional: true
       utf-8-validate:
         optional: true
+    dependencies:
+      bufferutil: 4.0.7
+      utf-8-validate: 6.0.3
     dev: false
 
   /yallist@4.0.0:

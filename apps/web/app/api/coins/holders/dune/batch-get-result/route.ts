@@ -9,7 +9,7 @@ import duration from 'dayjs/plugin/duration';
 
 dayjs.extend(duration);
 
-const { DUNE_API_KEY } = process.env;
+const DUNE_API_KEY = process.env['DUNE_API_KEY']
 
 async function getDuneQueryResult(executionId: string) {
     const client = new DuneClient(DUNE_API_KEY ?? "");

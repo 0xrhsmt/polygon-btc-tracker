@@ -9,7 +9,7 @@ import duration from 'dayjs/plugin/duration';
 
 dayjs.extend(duration);
 
-const { DUNE_API_KEY } = process.env;
+const DUNE_API_KEY = process.env['DUNE_API_KEY']
 const DUNE_ERC20_HOLDERS_QUERY_ID = 2492386;
 const DUNE_HOLDERS_QUERY_SUPPORTED_CHAINS = ["polygon", 'ethereum'] as const
 const DUNE_TARGET_CHAIN = (chain:  typeof DUNE_HOLDERS_QUERY_SUPPORTED_CHAINS[number]) => `erc20_${chain}.evt_Transfer`
