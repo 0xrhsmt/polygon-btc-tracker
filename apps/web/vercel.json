@@ -3,6 +3,18 @@
     {
       "path": "/api/coins/prices/coingecko/batch-update",
       "schedule": "*/3 * * * *"
+    },
+    {
+      "path": "/api/coins/total-supply/polygon-rpc/batch-update",
+      "schedule": "*/3 * * * *"
+    },
+    {
+      "path": "/api/coins/holders/dune/batch-execute",
+      "schedule": "0 0 * * *"
+    },
+    {
+      "path": "/api/coins/holders/dune/batch-get-result",
+      "schedule": "0 3 * * *"
     }
   ]
 }
