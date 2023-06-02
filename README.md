@@ -3,8 +3,7 @@
 <img src="docs/screenshot.png" width="500"><br>
 
 This is a simple app that tracks the metrics of BTCs on Polygon.<br>
-There are more than six types of Bridged BTC, and you can see their current status through basic metrics.<br>
-Also, it has also been implemented to be able to accommodate any increase in the types of Bridged BTC in the future.<br>
+There are many types of Bridged BTC, and you can see their status through basic metrics.
 
 
 ## Demonstrations
@@ -33,7 +32,7 @@ TODO: paste url
 |  Volume |  CoinGecko API  |  Utilizing the [CoinGecko Public API](https://www.coingecko.com/en/api).  |
 |  Market Cap |  CoinGecko API |  Utilizing the [CoinGecko Public API](https://www.coingecko.com/en/api).  |
 |  Holders |  Dune API |  [The Dune Query](https://dune.com/queries/2492386) has been created to obtain the number of BTC holders, which is invoked using [the Dune API](https://dune.com/docs/api/).  |
-|  Circulating Supply |  Polygon (Ethereum) JSON-RPC API |  The `totalSupply` function is called from the JSON-RPC API to retrieve the value.  |
+|  Circulating Supply |  Polygon (Ethereum) JSON-RPC API |  The `totalSupply` function is called from the JSON-RPC API to retrieve the current value.  |
 
 ## Development
 
