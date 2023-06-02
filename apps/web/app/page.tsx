@@ -45,13 +45,13 @@ export default function Page() {
     fetchData();
   }, []);
 
-  const btcPrice = btc?.coingecko_price.market_data.current_price.usd ? new Intl.NumberFormat('en-US', {
+  const btcPrice = btc?.coingecko_price?.market_data.current_price.usd ? new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
-  }).format(btc?.coingecko_price.market_data.current_price.usd) : '-'
-  const circulatingSupply = btc?.coingecko_price.market_data.circulating_supply ? new Intl.NumberFormat('en-US', {
+  }).format(btc?.coingecko_price?.market_data.current_price.usd) : '-'
+  const circulatingSupply = btc?.coingecko_price?.market_data.circulating_supply ? new Intl.NumberFormat('en-US', {
     style: 'decimal',
-  }).format(btc?.coingecko_price.market_data.circulating_supply) : '-'
+  }).format(btc?.coingecko_price?.market_data.circulating_supply) : '-'
   const circulatingSupplyPolygon = coins.length > 0 ? new Intl.NumberFormat('en-US', {
     style: 'decimal',
   }).format(Math.ceil(coins.reduce((sum, c) => c.polygon_total_supply ? sum + parseFloat(formatUnits(BigInt(c.polygon_total_supply), c.token_decimals)) : sum, 0.0))) : '-'
