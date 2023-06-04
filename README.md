@@ -67,6 +67,19 @@ $pnpm install
 $turbo run dev
 
 $open http://localhost:3000
+
+# seed KV
+$cd apps/web
+$pnpm run seed:kv
+
+# run batch job manually
+$curl localhost:3000/api/coins/prices/coingecko/batch-update
+$curl localhost:3000/api/coins/total-supply/polygon-rpc/batch-update
+$curl localhost:3000/api/coins/holders/dune/batch-execute
+# please wait about 30 minutes.
+$curl localhost:3000/api/coins/holders/dune/batch-get-result
+
+$open http://localhost:3000
 ```
 
 ## Production Deployment
